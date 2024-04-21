@@ -13,4 +13,4 @@ jobs:
         with:
           mode: exactly
           count: 1
-          labels: "devnet-pass"
+          labels: devnet-pass
