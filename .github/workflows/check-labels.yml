@@ -10,11 +10,12 @@ jobs:
     name: devnet-pass
     runs-on: ubuntu-latest
     steps:
-      - name: Check for Required Label
+      - name: Labels added
+        if: ${{ contains(fromJson('["devnet-pass"]'), github.event.label.name) == true }}
+        run: echo Pass
+      - name: Labels not added
         if: ${{ contains(fromJson('["devnet-pass"]'), github.event.label.name) != true }}
-        run: |
-          echo "Error: Required label 'devnet-pass' is missing."
-          exit 1
+        run: exit 1
   testnet-pass:
     name: testnet-pass
     runs-on: ubuntu-latest
