@@ -1,4 +1,4 @@
-name: Check Required Labels
+name: Check Labels
 on:
   pull_request:
     types: [opened, synchronize, labeled, unlabeled]
@@ -7,7 +7,7 @@ on:
 
 jobs:
   devnet-pass:
-    name: Tested successfully on devnet
+    name: Tested on devnet
     runs-on: ubuntu-latest
     steps:
       - name: Check for Required Label
@@ -21,7 +21,7 @@ jobs:
             echo "Error: Required label '$REQUIRED_LABEL' is missing."
             exit 1
   testnet-pass:
-    name: Tested successfully on testnet
+    name: Tested on testnet
     runs-on: ubuntu-latest
     steps:
       - name: Check for Required Label
