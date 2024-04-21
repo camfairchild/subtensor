@@ -1,0 +1,36 @@
+name: Check Required Labels
+on:
+  pull_request:
+    types: [opened, synchronize, labeled, unlabeled]
+
+  workflow_dispatch:
+
+jobs:
+  devnet-pass:
+    name: Tested successfully on devnet
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for Required Label
+        run: |
+          REQUIRED_LABEL="devnet-pass"
+          PR_LABELS="${{ toJSON(github.event.pull_request.labels) }}"
+
+          if echo "$PR_LABELS" | grep -q "\"name\":\"$REQUIRED_LABEL\""; then
+            echo "Required label '$REQUIRED_LABEL' is present."
+          else:
+            echo "Error: Required label '$REQUIRED_LABEL' is missing."
+            exit 1
+  testnet-pass:
+    name: Tested successfully on testnet
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for Required Label
+        run: |
+          REQUIRED_LABEL="testnet-pass"
+          PR_LABELS="${{ toJSON(github.event.pull_request.labels) }}"
+
+          if echo "$PR_LABELS" | grep -q "\"name\":\"$REQUIRED_LABEL\""; then
+            echo "Required label '$REQUIRED_LABEL' is present."
+          else:
+            echo "Error: Required label '$REQUIRED_LABEL' is missing."
+            exit 1
