@@ -15,7 +15,7 @@ jobs:
           echo "A"
           REQUIRED_LABEL="devnet-pass"
           echo "B"
-          PR_LABELS="${{ toJSON(github.event.pull_request.labels) }}"
+          PR_LABELS='${{ toJSON(github.event.pull_request.labels) }}'
           echo "C"
 
           if echo "$PR_LABELS" | grep -q "\"name\":\"$REQUIRED_LABEL\""; then
