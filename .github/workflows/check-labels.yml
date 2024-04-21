@@ -7,12 +7,14 @@ on:
 
 jobs:
   devnet-pass:
-    name: devnet-pass
+    name: devnet-passx
     runs-on: ubuntu-latest
     steps:
       - name: Labels not added
         if: ${{ contains(github.event.label.name, 'devnet-pass') != true }}
-        run: exit 1
+        run: |
+          echo '${{ github.event.label.name }}'
+          exit 1
   testnet-pass:
     name: testnet-pass
     runs-on: ubuntu-latest
