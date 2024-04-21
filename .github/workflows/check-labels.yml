@@ -1,26 +1,16 @@
 name: Check Labels
 on:
   pull_request:
-    types: [opened, synchronize, labeled, unlabeled]
-
-  workflow_dispatch:
-
+    types: [opened, labeled, unlabeled, synchronize]
 jobs:
   devnet-pass:
-    name: devnet-passx
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
     steps:
-      - name: Labels not added
-        if: ${{ contains(github.event.label.name, 'devnet-pass') != true }}
-        run: |
-          echo '${{ github.event.label.name }}'
-          exit 1
-  testnet-pass:
-    name: testnet-pass
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check for Required Label
-        if: ${{ contains(fromJson('["testnet-pass"]'), github.event.label.name) != true }}
-        run: |
-          echo "Error: Required label 'testnet-pass' is missing."
-          exit 1
+      - uses: mheap/github-action-required-labels@v5
+        with:
+          mode: exactly
+          count: 1
+          labels: "devnet-pass"
