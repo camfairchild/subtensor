@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Labels not added
-        if: ${{ contains(github.event.issue.labels.*.name, '<devnet-pass>') != true }}
+        if: ${{ contains(github.event.label.name, 'devnet-pass') != true }}
         run: exit 1
   testnet-pass:
     name: testnet-pass
