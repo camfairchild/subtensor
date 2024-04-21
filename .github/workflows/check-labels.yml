@@ -7,7 +7,7 @@ on:
 
 jobs:
   devnet-pass:
-    name: Tested on devnet
+    name: devnet-pass
     runs-on: ubuntu-latest
     steps:
       - name: Check for Required Label
@@ -21,7 +21,7 @@ jobs:
             echo "Error: Required label '$REQUIRED_LABEL' is missing."
             exit 1
   testnet-pass:
-    name: Tested on testnet
+    name: testnet-pass
     runs-on: ubuntu-latest
     steps:
       - name: Check for Required Label
