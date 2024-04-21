@@ -12,12 +12,17 @@ jobs:
     steps:
       - name: Check for Required Label
         run: |
+          echo "A"
           REQUIRED_LABEL="devnet-pass"
+          echo "B"
           PR_LABELS="${{ toJSON(github.event.pull_request.labels) }}"
+          echo "C"
 
           if echo "$PR_LABELS" | grep -q "\"name\":\"$REQUIRED_LABEL\""; then
+            echo "D1"
             echo "Required label '$REQUIRED_LABEL' is present."
           else:
+            echo "D2"
             echo "Error: Required label '$REQUIRED_LABEL' is missing."
             exit 1
   testnet-pass:
