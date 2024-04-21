@@ -18,7 +18,7 @@ jobs:
           PR_LABELS='${{ toJSON(github.event.pull_request.labels) }}'
           echo "C"
 
-          if echo "$PR_LABELS" | grep -q "\"name\":\"$REQUIRED_LABEL\""; then
+          if echo "${PR_LABELS}" | grep -q "\"name\":\"$REQUIRED_LABEL\""; then
             echo "D1"
             echo "Required label '$REQUIRED_LABEL' is present."
           else:
@@ -32,7 +32,7 @@ jobs:
       - name: Check for Required Label
         run: |
           REQUIRED_LABEL="testnet-pass"
-          PR_LABELS="${{ toJSON(github.event.pull_request.labels) }}"
+          PR_LABELS='${{ toJSON(github.event.pull_request.labels) }}'
 
           if echo "$PR_LABELS" | grep -q "\"name\":\"$REQUIRED_LABEL\""; then
             echo "Required label '$REQUIRED_LABEL' is present."
