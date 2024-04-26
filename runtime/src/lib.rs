@@ -10,7 +10,7 @@ mod migrations;
 
 use codec::{Decode, Encode, MaxEncodedLen};
 
-use migrations::account_data_migration;
+use migrations::{account_data_migration, init_storage_versions};
 use pallet_commitments::CanCommit;
 use pallet_grandpa::{
     fg_primitives, AuthorityId as GrandpaId, AuthorityList as GrandpaAuthorityList,
@@ -305,7 +305,7 @@ where
     fn polynomial() -> WeightToFeeCoefficients<Self::Balance> {
         let coefficient = WeightToFeeCoefficient {
             coeff_integer: 0,
-            coeff_frac: Perbill::from_parts(1),
+            coeff_frac: Perbill::from_parts(1_000_000),
             negative: false,
             degree: 1,
         };
@@ -1091,6 +1091,18 @@ impl
     fn set_weights_min_stake(min_stake: u64) {
         SubtensorModule::set_weights_min_stake(min_stake);
     }
+
+    fn clear_small_nominations() {
+        SubtensorModule::clear_small_nominations();
+    }
+
+    fn set_nominator_min_required_stake(min_stake: u64) {
+        SubtensorModule::set_nominator_min_required_stake(min_stake);
+    }
+
+    fn get_nominator_min_required_stake() -> u64 {
+        SubtensorModule::get_nominator_min_required_stake()
+    }
 }
 
 impl pallet_admin_utils::Config for Runtime {
@@ -1150,7 +1162,12 @@ pub type SignedExtra = (
     pallet_commitments::CommitmentsSignedExtension<Runtime>,
 );
 
-type Migrations = account_data_migration::Migration;
+type Migrations = (
+    init_storage_versions::Migration,
+    account_data_migration::Migration,
+    pallet_multisig::migrations::v1::MigrateToV1<Runtime>,
+    pallet_preimage::migration::v1::Migration<Runtime>,
+);
 
 // Unchecked extrinsic type as expected by this runtime.
 pub type UncheckedExtrinsic =

@@ -1,5 +1,5 @@
 use super::*;
-use frame_support::pallet_prelude::DispatchResultWithPostInfo;
+use frame_support::pallet_prelude::{DispatchResult, DispatchResultWithPostInfo};
 use frame_support::storage::IterableStorageDoubleMap;
 use sp_core::{Get, H256, U256};
 use sp_io::hashing::{keccak_256, sha2_256};
@@ -123,7 +123,7 @@ impl<T: Config> Pallet<T> {
         // Possibly there is no neuron slots at all.
         ensure!(
             Self::get_max_allowed_uids(netuid) != 0,
-            Error::<T>::NetworkDoesNotExist
+            Error::<T>::NoNeuronIdAvailable
         );
 
         if current_subnetwork_n < Self::get_max_allowed_uids(netuid) {
@@ -315,7 +315,7 @@ impl<T: Config> Pallet<T> {
         // Possibly there is no neuron slots at all.
         ensure!(
             Self::get_max_allowed_uids(netuid) != 0,
-            Error::<T>::NetworkDoesNotExist
+            Error::<T>::NoNeuronIdAvailable
         );
 
         if current_subnetwork_n < Self::get_max_allowed_uids(netuid) {
@@ -394,7 +394,7 @@ impl<T: Config> Pallet<T> {
 
         // --- 5. Add Balance via faucet.
         let balance_to_add: u64 = 100_000_000_000;
-        Self::coinbase( 100_000_000_000 ); // We are creating tokens here from the coinbase.
+        Self::coinbase(100_000_000_000); // We are creating tokens here from the coinbase.
 
         let balance_to_be_added_as_balance = Self::u64_to_balance(balance_to_add);
         Self::add_balance_to_coldkey_account(&coldkey, balance_to_be_added_as_balance.unwrap());
