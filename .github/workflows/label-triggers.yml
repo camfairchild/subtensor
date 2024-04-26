@@ -4,6 +4,10 @@ on:
     types:
       - labeled
 
+permissions:
+  issues: write
+  pull-requests: write
+
 jobs:
   comment_on_breaking_change:
     runs-on: ubuntu-latest
