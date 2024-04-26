@@ -369,7 +369,6 @@ fn test_add_stake_under_limit() {
     new_test_ext(1).execute_with(|| {
         let hotkey_account_id = U256::from(561337);
         let coldkey_account_id = U256::from(61337);
-        let who: <Test as frame_system::Config>::AccountId = hotkey_account_id;
         let netuid: u16 = 1;
         let start_nonce: u64 = 0;
         let tempo: u16 = 13;
@@ -403,7 +402,6 @@ fn test_add_stake_rate_limit_exceeded() {
     new_test_ext(1).execute_with(|| {
         let hotkey_account_id = U256::from(561337);
         let coldkey_account_id = U256::from(61337);
-        let who: <Test as frame_system::Config>::AccountId = hotkey_account_id;
         let netuid: u16 = 1;
         let start_nonce: u64 = 0;
         let tempo: u16 = 13;
@@ -446,7 +444,6 @@ fn test_remove_stake_under_limit() {
     new_test_ext(1).execute_with(|| {
         let hotkey_account_id = U256::from(561337);
         let coldkey_account_id = U256::from(61337);
-        let who: <Test as frame_system::Config>::AccountId = hotkey_account_id;
         let netuid: u16 = 1;
         let start_nonce: u64 = 0;
         let tempo: u16 = 13;
@@ -482,7 +479,6 @@ fn test_remove_stake_rate_limit_exceeded() {
     new_test_ext(1).execute_with(|| {
         let hotkey_account_id = U256::from(561337);
         let coldkey_account_id = U256::from(61337);
-        let who: <Test as frame_system::Config>::AccountId = hotkey_account_id;
         let netuid: u16 = 1;
         let start_nonce: u64 = 0;
         let tempo: u16 = 13;
