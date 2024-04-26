@@ -2549,8 +2549,8 @@ fn test_clear_small_nominations() {
         let total_cold2_stake_before = TotalColdkeyStake::<Test>::get(cold2);
         let total_hot1_stake_before = TotalHotkeyStake::<Test>::get(hot1);
         let total_hot2_stake_before = TotalHotkeyStake::<Test>::get(hot2);
-        let _ = Stake::<Test>::try_get(&hot2, &cold1).unwrap(); // ensure exists before
-        let _ = Stake::<Test>::try_get(&hot1, &cold2).unwrap(); // ensure exists before
+        let _ = Stake::<Test>::try_get(hot2, cold1).unwrap(); // ensure exists before
+        let _ = Stake::<Test>::try_get(hot1, cold2).unwrap(); // ensure exists before
         let total_stake_before = TotalStake::<Test>::get();
         SubtensorModule::set_nominator_min_required_stake(10);
 
@@ -2586,8 +2586,8 @@ fn test_clear_small_nominations() {
             TotalHotkeyStake::<Test>::get(hot2),
             total_hot2_stake_before - 1
         );
-        Stake::<Test>::try_get(&hot2, &cold1).unwrap_err();
-        Stake::<Test>::try_get(&hot1, &cold2).unwrap_err();
+        Stake::<Test>::try_get(hot2, cold1).unwrap_err();
+        Stake::<Test>::try_get(hot1, cold2).unwrap_err();
         assert_eq!(
             TotalColdkeyStake::<Test>::get(cold1),
             total_cold1_stake_before - 1
@@ -2596,7 +2596,7 @@ fn test_clear_small_nominations() {
             TotalHotkeyStake::<Test>::get(hot1),
             total_hot1_stake_before - 1
         );
-        Stake::<Test>::try_get(&hot2, &cold1).unwrap_err();
+        Stake::<Test>::try_get(hot2, cold1).unwrap_err();
         assert_eq!(TotalStake::<Test>::get(), total_stake_before - 2);
     });
 }
